@@ -21,9 +21,11 @@ def open_user():
 
 # Create the main window
 root = Tk()
-root.geometry("450x700")
+root.geometry("420x700")
 root.title("Renter v0.03")
 root.config(bg="#F5F5F5")  # Light background
+root.iconbitmap("icon.ico")
+
 
 # Styling and themes
 style = ttk.Style(root)
