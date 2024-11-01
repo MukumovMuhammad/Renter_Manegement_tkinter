@@ -1,4 +1,5 @@
 from docx import Document
+from docx.shared import Pt
 import os
 filename: str = r"assets\actFile.docx"
 
@@ -9,6 +10,8 @@ def EditInFile(User, Director, RecievDate, ReturnDate, type, item, act,user_stat
     pr = doc.paragraphs
 
     for i in range(len(pr)):
+        i.font.name = 'Times New Roman'
+        i.font.size = Pt(12)
         if "[FIRSTDATE]" in pr[i].text:
             pr[i].text = pr[i].text.replace("[FIRSTDATE]", RecievDate)
         if "[USER]" in pr[i].text:
