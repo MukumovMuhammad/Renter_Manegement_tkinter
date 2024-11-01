@@ -205,6 +205,9 @@ def open_add_user(root, refresh_callback):
         db.add_user(name, surname, status)
         userName_inp.delete(0,END)
         userSurname_inp.delete(0, END)
+        user_datas = db.get_users_by_typeOf()
+        users["values"] = user_datas
+        users.set(user_datas[0])
 
     # Use protocol to handle the close button click on the Toplevel window
     add_user_window.protocol("WM_DELETE_WINDOW", lambda: (on_user_close(add_user_window, refresh_callback)))

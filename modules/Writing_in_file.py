@@ -31,6 +31,8 @@ def EditInFile(User, Director, RecievDate, ReturnDate, type, item, act,user_stat
         table.cell(2, 1).text = "Зарядник"
     else:
         table.cell(1, 1).text = "Планшет"
+        row = table.rows[2]
+        row._element.getparent().remove(row._element)
     table.cell(1, 2).text = item[2] # models
     table.cell(1, 3).text = item[3] # SN
     table.cell(1, 4).text = item[1] # Code

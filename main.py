@@ -90,9 +90,15 @@ def on_select_user(event):
     user_status_inp.insert(0, db.get_a_user_by("name", user_inp.get().split(" ")[1])[3])
 
 def EditAndOpen():
+    selected_item = Categ_equip.get()
+    if selected_item == "Computer":
+        item = db.GetComputerByCode(Combo_Code.get())
+    else:
+        item = db.GetTabletByCode(Combo_Code.get())
+
     Edit.EditInFile(user_inp.get(), Dir_inp.get(), DataOfRent_inp.get(),
                     LastDate_inp.get(), Categ_equip.get(),
-                    db.GetComputerByCode(Combo_Code.get()), actNum.get(), user_status_inp.get(), dir_status.get())
+                    item, actNum.get(), user_status_inp.get(), dir_status.get())
 
     db.save_act(actNum.get())
 
@@ -132,7 +138,7 @@ Dir_lbl = ttk.Label(direct_frame, text="Director:")
 Dir_lbl.grid(row=0, column=0, padx=10, pady=5, sticky="w")
 
 Dir_inp = ttk.Entry(direct_frame, width=40)
-Dir_inp.insert(0, "")
+Dir_inp.insert(0, "Park Yongho")
 Dir_inp.grid(row=0, column=1, padx=10, pady=5)
 
 Dir_status_lbl = ttk.Label(direct_frame, text="status:")
