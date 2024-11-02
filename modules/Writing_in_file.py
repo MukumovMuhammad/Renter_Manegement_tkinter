@@ -1,5 +1,6 @@
 from docx import Document
 from docx.shared import Pt
+
 import os
 filename: str = r"assets\actFile.docx"
 
@@ -9,9 +10,12 @@ def EditInFile(User, Director, RecievDate, ReturnDate, type, item, act,user_stat
     doc = Document(filename)
     pr = doc.paragraphs
 
+    style = doc.styles['Normal']
+    font = style.font
+    font.name = 'Times New Roman'
+    font.size = Pt(12)
+
     for i in range(len(pr)):
-        i.font.name = 'Times New Roman'
-        i.font.size = Pt(12)
         if "[FIRSTDATE]" in pr[i].text:
             pr[i].text = pr[i].text.replace("[FIRSTDATE]", RecievDate)
         if "[USER]" in pr[i].text:
@@ -27,6 +31,9 @@ def EditInFile(User, Director, RecievDate, ReturnDate, type, item, act,user_stat
         if "[DIRSTATUS]" in pr[i].text:
             pr[i].text = pr[i].text.replace("[DIRSTATUS]", dir_status)
 
+        for run in pr[i].runs: #yeah i know i know. It is a for inside of a for. I know. If you have a better way. Let me know
+            run.font.name = 'Times New Roman'
+            run.font.size = Pt(12)
 
     table = doc.tables[0]
     if type == "Computer":
@@ -36,6 +43,7 @@ def EditInFile(User, Director, RecievDate, ReturnDate, type, item, act,user_stat
         table.cell(1, 1).text = "Планшет"
         row = table.rows[2]
         row._element.getparent().remove(row._element)
+
     table.cell(1, 2).text = item[2] # models
     table.cell(1, 3).text = item[3] # SN
     table.cell(1, 4).text = item[1] # Code
@@ -43,6 +51,9 @@ def EditInFile(User, Director, RecievDate, ReturnDate, type, item, act,user_stat
 
 
     newfilename =  rf"assets\{act}_ACT_{User}.docx"
+
+
+
     doc.save(newfilename)
     os.startfile(newfilename)
     print("Done")
